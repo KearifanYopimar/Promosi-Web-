@@ -4,7 +4,7 @@
 @section('content')
     <form method="post" action="{{url('teacher/update')}}">
         @csrf
-        <input type="hidden" name="id" value="{{$teacher->id}}"/>
+        <input type="hidden" name="id" value="{{$students->id}}"/>
         <div class="row">
             <div class="col-12">
                 <div class="card">

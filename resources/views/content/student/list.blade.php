@@ -51,7 +51,7 @@
     <script>
         $(function () {
             $('.btn-hapus').on('click', function () {
-                let idStudent = $(this).data('id-student');
+                let id = $(this).data('id_student');
                 let name = $(this).data('name');
                 Swal.fire({
                     title: "Konfirmasi",
@@ -69,7 +69,7 @@
                             type: 'POST',
                             data: {
                                 _token: '{{csrf_token()}}',
-                                id: idStudent
+                                id: id
                             },
                             success: function () {
                                 Swal.fire('Sukses', 'Data berhasil dihapus', 'success')

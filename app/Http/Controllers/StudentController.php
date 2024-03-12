@@ -54,12 +54,14 @@ class StudentController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'dob' => 'required|date|before:' . Carbon::now()->addDay()->format('Y-m-d') . '',
+            'id_teacher' => 'required',
         ]);
         #sudah tervalidasi
         $student = new Student();
         $student->name = $request->name;
         $student->email = $request->email;
         $student->dob = $request->dob;
+        $student->id_teacher = $request->id_teacher;
         $student->save();
         return redirect(url('/student'));
 

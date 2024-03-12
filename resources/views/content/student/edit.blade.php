@@ -13,7 +13,7 @@
                             <label for="">Name</label>
                             <input type="text"
                                    class="form-control @error('name') is-invalid @enderror"
-                                   value="{{$teacher->name}}"
+                                   value="{{$students->name}}"
                                    name="name">
                             @error('name')
                             <div class="invalid-feedback">

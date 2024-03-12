@@ -33,7 +33,7 @@ class StudentController extends Controller
             abort(404);
         }
         return view('content.student.edit', [
-            'student' => $student
+            'students' => $student
         ]);
     }
 
@@ -67,11 +67,12 @@ class StudentController extends Controller
 
     public function list()
     {
-        $students = students::query()->paginate(10);
+        $students = Student::query()->paginate(10);
         return view('content.student.list', [
-            'student' => $students
+            'students' => $students // Menggunakan 'students' bukan 'student'
         ]);
     }
+
 
     public function add()
     {

@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-primary mb-2" href="{{url('$/student/add')}}">Tambah Data Student</a>
+                    <a class="btn btn-primary mb-2" href="{{url('/student/add')}}">Tambah Data Student</a>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -21,26 +21,20 @@
                             </thead>
                             <tbody>
                             @php
-                                $i = (($students->currentPage() -1)* $students->perPage())+1;
+                                $i = (($students->currentPage() -1) * $students->perPage()) + 1;
                             @endphp
                             @foreach($students as $student)
                                 <tr>
-                                    <td>{{$i++}}</td>
-                                    <td>{{$student->email}}</td>
-                                    <td>{{$student->dob}}</td>
-                                    <td>{{$student->age}} Tahun</td>
-                                    <td>{{$student->name}}</td>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->email }}</td>
+                                    <td>{{ $student->dob }}</td>
+                                    <td>{{ $student->age }} Tahun</td>
                                     <td>
                                         <a class="btn btn-warning btn-sm"
-                                           href="{{url('$student/edit/'.$student->id)}}">
-                                            <i class="fas fa-edit  "></i>
+                                           href="{{ url('/student/edit/' . $student->id) }}">
+                                            <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button"
-                                                data-id-teacher="{{$student->id}}"
-                                                data-name="{{$student->name}}"
-                                                class="btn btn-danger btn-sm btn-hapus">
-                                            <i class="fas fa-trash  "></i>
-                                        </button>
                                     </td>
                                 </tr>
                             @endforeach

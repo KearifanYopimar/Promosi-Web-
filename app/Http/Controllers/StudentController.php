@@ -14,6 +14,7 @@ class StudentController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'dob' => 'required|date|before:' . Carbon::now()->addDay()->format('Y-m-d') . '',
+            'id_teacher' => 'required',
         ]);
         $student = Student::find($request->id);
         if ($student === null) {
@@ -22,18 +23,19 @@ class StudentController extends Controller
         $student->name = $request->name;
         $student->email = $request->email;
         $student->dob = $request->dob;
+        $student->id_teacher = $request->id_teacher;
         $student->save();
         return redirect(url('/student'));
     }
 
     public function edit(Request $request, $id)
     {
-        $student = Student::find($id);
-        if ($student === null) {
+        $students = Student::find($id);
+        if ($students === null) {
             abort(404);
         }
         return view('content.student.edit', [
-            'students' => $student
+            'students' => $students
         ]);
     }
 

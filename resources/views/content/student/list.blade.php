@@ -16,6 +16,7 @@
                                 <th>Email</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Umur</th>
+                                <th>id teacher</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -30,11 +31,18 @@
                                     <td>{{ $student->email }}</td>
                                     <td>{{ $student->dob }}</td>
                                     <td>{{ $student->age }} Tahun</td>
+                                    <td>{{ $student->id_teacher }} </td>
                                     <td>
                                         <a class="btn btn-warning btn-sm"
                                            href="{{ url('/student/edit/' . $student->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        <button type="button"
+                                                data-id-student="{{$student->id}}"
+                                                data-name="{{$student->name}}"
+                                                class="btn btn-danger btn-sm btn-hapus">
+                                            <i class="fas fa-trash  "></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -51,7 +59,7 @@
     <script>
         $(function () {
             $('.btn-hapus').on('click', function () {
-                let id = $(this).data('id_student');
+                let idStudent = $(this).data('id-student');
                 let name = $(this).data('name');
                 Swal.fire({
                     title: "Konfirmasi",
@@ -69,7 +77,7 @@
                             type: 'POST',
                             data: {
                                 _token: '{{csrf_token()}}',
-                                id: id
+                                id: idStudent
                             },
                             success: function () {
                                 Swal.fire('Sukses', 'Data berhasil dihapus', 'success')

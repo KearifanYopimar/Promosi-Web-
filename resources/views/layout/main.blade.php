@@ -14,6 +14,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
+
+    <link rel="stylesheet" href="/assets/plugins/toastr/toastr.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
 </head>
@@ -81,8 +83,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/assets/dist/js/adminlte.min.js"></script>
 
+<script src="/assets/plugins/toastr/toastr.min.js"></script>
+<script src="/assets/dist/js/adminlte.min.js"></script>
+<script>
+    $(function () {
+
+        @if(session()->has('gagal'))
+        toastr.error('{{Session::get('gagal')}}', 'Error')
+        @endif
+        @if(session()->has('berhasil'))
+        toastr.success('{{Session::get('berhasil')}}', 'Berhasil')
+        @endif
+    });
+</script>
 @stack('js')
 </body>
 </html>

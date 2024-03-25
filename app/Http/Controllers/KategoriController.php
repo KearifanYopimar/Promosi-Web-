@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\kategori;
-use mysql_xdevapi\Exception;
+use App\Models\Kategori;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KategoriController extends Controller
 {
@@ -21,55 +21,63 @@ class KategoriController extends Controller
 
     public function prosesTambah(Request $request)
     {
-        $this->validate($request,[
-            'nama_kategori'=>'required'
+        $this->validate($request, [
+            'nama_kategori' => 'required'
         ]);
 
-        $kategori = new kategori();
-        $kategori->nama_kategori =$request->nama_kategori;
+        $kategori = new Kategori();
+        $kategori->nama_kategori = $request->nama_kategori;
 
-        try{
+        try {
             $kategori->save();
-            return redirect(route('kategori.index'))->with('pesan',['success','berhasil tambah kategori']);
-        }catch (\Exception $e){
-            return redirect(route('kategori.index'))->with('pesan',['danger','gagal tambah kategori']);
-            }
-
+            return redirect(route('kategori.index'))->with('pesan', ['success','Berhasil tambah kategori']);
+        } catch (\Exception $e) {
+            return redirect(route('kategori.index'))->with('pesan', ['danger','Gagal tambah kategori']);
+        }
     }
+
 
     public function ubah($id)
     {
-        $kategori = kategori::findOrFail($id);
+        $kategori = Kategori::findOrFail($id);
         return view('backend.content.kategori.formUbah', compact('kategori'));
     }
 
     public function prosesUbah(Request $request)
     {
-        $this->validate($request,[
-            'id_kategori'=>'required',
-            'nama_kategori'=>'required'
+        $this->validate($request, [
+            'id_kategori' => 'required',
+            'nama_kategori' => 'required'
         ]);
 
-        $kategori = kategori::findOrFail($request->id_kategori);
-        $kategori->nama_kategori =$request->nama_kategori;
+        $kategori = Kategori::findOrFail($request->id_kategori);
+        $kategori->nama_kategori = $request->nama_kategori;
 
-        try{
+        try {
             $kategori->save();
-            return redirect(route('kategori.index'))->with('pesan',['success','berhasil ubah kategori']);
-        }catch (\Exception $e){
-            return redirect(route('kategori.index'))->with('pesan',['danger','gagal ubah kategori']);
+            return redirect(route('kategori.index'))->with('pesan', ['success','Berhasil ubah kategori']);
+        } catch (\Exception $e) {
+            return redirect(route('kategori.index'))->with('pesan', ['danger','Gagal ubah kategori']);
         }
+
     }
 
     public function hapus($id)
     {
-        $kategori = kategori::findOrFail($id);
+        $kategori = Kategori::findOrFail($id);
 
-        try{
+        try {
             $kategori->delete();
-            return redirect(route('kategori.index'))->with('pesan',['success','berhasil hapus kategori']);
-        }catch (\Exception $e){
-            return redirect(route('kategori.index'))->with('pesan',['danger','gagal hapus kategori']);
+            return redirect(route('kategori.index'))->with('pesan', ['success','Berhasil hapus kategori']);
+        } catch (\Exception $e) {
+            return redirect(route('kategori.index'))->with('pesan', ['danger','Gagal hapus kategori']);
         }
+    }
+
+    public function exportPdf()
+    {
+        $kategori = Kategori::all();
+        $pdf = Pdf::loadView('backend.content.kategori.export', compact('kategori'));
+        return $pdf->download('Data Kategori.pdf');
     }
 }

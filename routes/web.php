@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +76,14 @@ Route::group(['middleware' => 'auth:user'], function(){
         Route::get('/menu/hapus/{id}',[App\Http\Controllers\MenuController::class, 'hapus'])->name('menu.hapus');
         Route::get('/menu/order/{idMenu}/{idSwap}',[App\Http\Controllers\MenuController::class, 'order'])->name('menu.order');
 
+        Route::get('/produk', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/produk/tambah', [ProductController::class, 'tambah'])->name('product.tambah');
+        Route::post('/produk/prosesTambah', [ProductController::class, 'prosesTambah'])->name('product.prosesTambah');
+        Route::get('/produk/ubah/{id}', [ProductController::class, 'edit'])->name('product.edit'); // Perbaikan rute untuk edit produk
+        Route::post('/produk/prosesEdit/{id}', [ProductController::class, 'prosesEdit'])->name('product.prosesEdit');
+        Route::get('/produk/hapus/{id}', [ProductController::class, 'delete'])->name('product.delete');
+        Route::get('/produk/export-pdf', [ProductController::class, 'exportPdf'])->name('product.exportPdf');
+
     });
     Route::get('/Logout',[AuthController::class, 'Logout'])->name('auth.logout');
 });
@@ -88,3 +99,11 @@ Route::get('files/{filename}', function ($filename) {
     $response->header("Content-Type", $type);
     return $response;
 })->name('storage');
+
+
+
+
+
+
+
+

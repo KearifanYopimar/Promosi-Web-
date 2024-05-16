@@ -19,9 +19,9 @@ return new class extends Migration {
             $table->integer('Qty');
             $table->text('Description')->nullable();
             $table->string('image')->nullable();
-            $table->string('KategoriAA')->nullable();
+            $table->string('Kategori')->nullable();
             $table->timestamps();
-            $table->softDeletes(); // Tambahkan softDeletes untuk menggunakan soft delete
+            $table->softDeletes();
         });
     }
 

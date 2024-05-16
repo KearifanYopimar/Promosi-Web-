@@ -2,16 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\SoftDeletes; // Import SoftDeletes
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes; // Gunakan trait SoftDeletes
-
-    protected $table = 'products'; // Ubah ke 'products' (jamak)
+    protected $table = 'products';
 
     protected $primaryKey = 'id_product';
     protected $fillable = [
@@ -20,12 +15,6 @@ class Product extends Model
         'Qty',
         'Description',
         'image',
-        'KategoriAA',
+        'Kategori',
     ];
-=======
-
-class Product extends Model
-{
-    use HasFactory;
->>>>>>> 34aca4c04279cf1cb0308240c7e2a79c6ea6a443
 }
